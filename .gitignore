@@ -1,0 +1,5 @@
+node_modules
+lib
+
+a.ts
+class*.ts
