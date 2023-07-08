@@ -42,14 +42,12 @@ import { Decoder, Encoder, Base, Uint16, Uint32, Vec } from 'bincoder';
 class SimpleArrayTest extends Base {
   a: Uint16;
   b: Vec<Uint32>;
-  size: number;
 
   // must support parameterless constructor
   constructor(a: Uint16 = new Uint16(), b: Vec<Uint32> = new Vec(Uint32)) {
     super();
     this.a = a;
     this.b = b;
-    this.size = this.a.size + this.b.size;
   }
 
   // method encode() must be added
