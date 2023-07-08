@@ -137,7 +137,7 @@ export class Uint128 extends Base {
     encoder.writer().write(buffer);
   }
 
-  decode(decoder: Decoder): Uint128 {
+  decode(decoder: Decoder): this {
     const buffer = new ArrayBuffer(this.size);
     decoder.reader().read(buffer);
     const view = new DataView(buffer);

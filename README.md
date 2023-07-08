@@ -26,41 +26,25 @@ it("Bool", () => {
   let encoded = a.pack();
   console.log(encoded);
 
-  let [decoded, size] = a.unpack(encoded);
-  let [decoded1, _size] = new Bool().unpack(encoded);
+  let [decoded, size] = new Bool().unpack(encoded);
   console.log(decoded, " ", size);
 
   expect(decoded).toEqual(a);
-  expect(decoded1).toEqual(a);
 });
 ```
 
 ## Class
 ```
-import { Decoder, Encoder, Base, Uint16, Uint32, Vec } from 'bincoder';
+import { Base, Uint16, Uint32, Vec } from 'bincoder';
 
 class SimpleArrayTest extends Base {
   a: Uint16;
   b: Vec<Uint32>;
 
-  // must support parameterless constructor
   constructor(a: Uint16 = new Uint16(), b: Vec<Uint32> = new Vec(Uint32)) {
     super();
     this.a = a;
     this.b = b;
-  }
-
-  // method encode() must be added
-  encode(encoder: Encoder) {
-    this.a.encode(encoder);
-    this.b.encode(encoder);
-  }
-
-  // method decode() must be added
-  decode(decoder: Decoder): this {
-    this.a = this.a.decode(decoder);
-    this.b = this.b.decode(decoder);
-    return this;
   }
 }
 
@@ -73,7 +57,7 @@ it("class with simple array", () => {
   let encoded = t.pack();
   console.log("encoded: ", encoded);
 
-  let [decoded, size] = t.unpack(encoded);
+  let [decoded, size] = new SimpleArrayTest().unpack(encoded);
   let decodedObj = decoded as SimpleArrayTest;
   console.log("decodedObj.b.v: ", decodedObj.b.v, "size: ", size);
 

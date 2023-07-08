@@ -40,9 +40,20 @@ export class Base implements Type {
     return [result, bytes_read];
   }
 
-  encode(_encoder: Encoder) {}
+  encode(encoder: Encoder) {
+    for (const prop of Object.values(this)) {
+        if (prop instanceof Base) {
+            prop.encode(encoder);
+        }
+    }
+  }
 
-  decode(_decoder: Decoder): Decode {
+  decode(decoder: Decoder): this {
+    for (let prop of Object.values(this)) {
+        if (prop instanceof Base) {
+            prop = prop.decode(decoder);
+        }
+    }
     return this;
   }
 }

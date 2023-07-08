@@ -22,12 +22,10 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
-    let [decoded1, _size] = new Bool().unpack(encoded);
+    let [decoded, size] = new Bool().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
-    expect(decoded1).toEqual(a);
   });
 
   it("Int8", () => {
@@ -36,7 +34,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Int8().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -48,7 +46,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Int16().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -60,7 +58,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Int32().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -72,7 +70,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Int64().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -84,7 +82,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Int128().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -96,7 +94,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Uint8().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -108,7 +106,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Uint16().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -120,7 +118,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Uint32().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -132,7 +130,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Uint64().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -144,7 +142,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Uint128().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -156,7 +154,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Option(new Uint16()).unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -166,7 +164,7 @@ describe("basic types", () => {
     let encoded1 = b.pack();
     console.log(encoded1);
 
-    let [decoded1, size1] = b.unpack(encoded1);
+    let [decoded1, size1] = new Option(new Uint16()).unpack(encoded1);
     console.log(decoded1, " ", size1);
 
     expect(decoded1).toEqual(b);
@@ -178,7 +176,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log("encoded: ", encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new Vec(Uint64).unpack(encoded);
     console.log("decoded: ", decoded, " ", size);
 
     expect(decoded).toEqual(a);
@@ -190,7 +188,7 @@ describe("basic types", () => {
     let encoded = a.pack();
     console.log(encoded);
 
-    let [decoded, size] = a.unpack(encoded);
+    let [decoded, size] = new String().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);

@@ -1,5 +1,3 @@
-import { Decoder } from "../src/de";
-import { Encoder } from "../src/enc";
 import { Base, Uint16, Uint32, Vec } from "../src/types";
 
 describe("class", () => {
@@ -9,7 +7,7 @@ describe("class", () => {
     let encoded = t.pack();
     console.log(encoded);
 
-    let [decoded, size] = t.unpack(encoded);
+    let [decoded, size] = new Test().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(t);
@@ -19,7 +17,7 @@ describe("class", () => {
     let encoded1 = t.pack();
     console.log(encoded1);
 
-    let [decoded1, size1] = t.unpack(encoded1);
+    let [decoded1, size1] = new Test().unpack(encoded1);
     console.log(decoded1, " ", size1);
 
     expect(decoded1).toEqual(t);
@@ -34,7 +32,7 @@ describe("class", () => {
     let encoded = t.pack();
     console.log("encoded: ", encoded);
 
-    let [decoded, size] = t.unpack(encoded);
+    let [decoded, size] = new SimpleArrayTest().unpack(encoded);
     let decodedObj = decoded as SimpleArrayTest;
     console.log("decodedObj.b.v: ", decodedObj.b.v, "size: ", size);
 
@@ -51,7 +49,7 @@ describe("class", () => {
     let encoded = t.pack();
     console.log(encoded);
 
-    let [decoded, size] = t.unpack(encoded);
+    let [decoded, size] = new NestedTest().unpack(encoded);
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(t);
@@ -69,7 +67,7 @@ describe("class", () => {
     let encoded = t.pack();
     console.log("encoded: ", encoded);
 
-    let [decoded, size] = t.unpack(encoded);
+    let [decoded, size] = new ComplicatedTest().unpack(encoded);
     let decodedObj = decoded as ComplicatedTest;
     console.log("decodedObj.b.v: ", decodedObj.b.v, "size: ", size);
 
@@ -89,7 +87,7 @@ describe("class", () => {
     let encoded = t.pack();
     console.log("encoded: ", encoded);
 
-    let [decoded, size] = t.unpack(encoded);
+    let [decoded, size] = new ComplicatedTest().unpack(encoded);
     let decodedObj = decoded as ComplicatedTest;
     console.log("decodedObj.b.v: ", decodedObj.b.v, "size: ", size);
 
@@ -108,7 +106,7 @@ describe("class", () => {
     let encoded = t.pack();
     console.log("encoded: ", encoded);
 
-    let [decoded, size] = t.unpack(encoded);
+    let [decoded, _size] = new Test2().unpack(encoded);
     let decodedObj = decoded as Test2;
     for (let i = 0; i < decodedObj.a.v.length; i++) {
       console.log("item: ", decodedObj.a.v[i].a);
@@ -121,24 +119,10 @@ class Test extends Base {
   a: Uint16;
   b: Uint32;
 
-  // must support parameterless constructor
   constructor(a: Uint16 = new Uint16(), b: Uint32 = new Uint32()) {
     super();
     this.a = a;
     this.b = b;
-  }
-
-  // method encode() must be added
-  encode(encoder: Encoder) {
-    this.a.encode(encoder);
-    this.b.encode(encoder);
-  }
-
-  // method decode() must be added
-  decode(decoder: Decoder): this {
-    this.a = this.a.decode(decoder);
-    this.b = this.b.decode(decoder);
-    return this;
   }
 }
 
@@ -151,17 +135,6 @@ class SimpleArrayTest extends Base {
     this.a = a;
     this.b = b;
   }
-
-  encode(encoder: Encoder) {
-    this.a.encode(encoder);
-    this.b.encode(encoder);
-  }
-
-  decode(decoder: Decoder): this {
-    this.a = this.a.decode(decoder);
-    this.b = this.b.decode(decoder);
-    return this;
-  }
 }
 
 class NestedTest extends Base {
@@ -172,17 +145,6 @@ class NestedTest extends Base {
     super();
     this.a = a;
     this.b = b;
-  }
-
-  encode(encoder: Encoder) {
-    this.a.encode(encoder);
-    this.b.encode(encoder);
-  }
-
-  decode(decoder: Decoder): this {
-    this.a = this.a.decode(decoder);
-    this.b = this.b.decode(decoder);
-    return this;
   }
 }
 
@@ -198,51 +160,22 @@ class ComplicatedTest extends Base {
     this.a = a;
     this.b = b;
   }
-
-  encode(encoder: Encoder) {
-    this.a.encode(encoder);
-    this.b.encode(encoder);
-  }
-
-  decode(decoder: Decoder): this {
-    this.a = this.a.decode(decoder);
-    this.b = this.b.decode(decoder);
-    return this;
-  }
 }
 
 class Test1 extends Base {
   a: Vec<Uint16>;
 
-  constructor(a: Vec<Uint16> = new Vec<Uint16>(Uint16)) {
+  constructor(a: Vec<Uint16> = new Vec(Uint16)) {
     super();
     this.a = a;
-  }
-
-  encode(encoder: Encoder) {
-    this.a.encode(encoder);
-  }
-
-  decode(decoder: Decoder): this {
-    this.a = this.a.decode(decoder);
-    return this;
   }
 }
 
 class Test2 extends Base {
   a: Vec<Test1>;
 
-  constructor(a: Vec<Test1> = new Vec<Test1>(Test1)) {
+  constructor(a: Vec<Test1> = new Vec(Test1)) {
     super();
     this.a = a;
-  }
-
-  encode(encoder: Encoder) {
-    this.a.encode(encoder);
-  }
-
-  decode(decoder: Decoder): this {
-    this.a = this.a.decode(decoder);
-    return this;
   }
 }

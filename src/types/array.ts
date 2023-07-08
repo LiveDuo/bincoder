@@ -24,15 +24,16 @@ export class Vec<T extends Type> extends Base {
     }
   }
 
-  decode(decoder: Decoder): Vec<T> {
+  decode(decoder: Decoder): this {
     let len = Number(new Uint64().decode(decoder).v);
+    this.size = 8 + new this.itemType().size * len;
+    this.v = new Array<T>();
 
-    let vec = new Array<T>();
     for (let i = 0; i < len; i++) {
       let decoded = new this.itemType().decode(decoder) as T;
-      vec.push(decoded);
+      this.v.push(decoded);
     }
 
-    return new Vec(this.itemType, vec);
+    return this;
   }
 }
