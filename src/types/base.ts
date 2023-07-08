@@ -42,17 +42,17 @@ export class Base implements Type {
 
   encode(encoder: Encoder) {
     for (const prop of Object.values(this)) {
-        if (prop instanceof Base) {
-            prop.encode(encoder);
-        }
+      if (prop instanceof Base) {
+        prop.encode(encoder);
+      }
     }
   }
 
   decode(decoder: Decoder): this {
     for (let prop of Object.values(this)) {
-        if (prop instanceof Base) {
-            prop = prop.decode(decoder);
-        }
+      if (prop instanceof Base) {
+        prop = prop.decode(decoder);
+      }
     }
     return this;
   }
