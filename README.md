@@ -52,13 +52,13 @@ class SimpleArrayTest extends Base {
     this.size = this.a.size + this.b.size;
   }
 
-  // must add encode method
+  // method encode() must be added
   encode(encoder: Encoder) {
     this.a.encode(encoder);
     this.b.encode(encoder);
   }
 
-  // must add decode method
+  // method decode() must be added
   decode(decoder: Decoder): this {
     this.a = this.a.decode(decoder);
     this.b = this.b.decode(decoder);
