@@ -37,26 +37,7 @@ it("Bool", () => {
 
 ## Class
 ```
-import { Decoder } from 'bincoder/de';
-import { Encoder } from 'bincoder/enc';
-import { Base, Uint16, Uint32, Vec } from 'bincoder/types';
-
-it("class with simple array", () => {
-  let t = new SimpleArrayTest(
-    new Uint16(1),
-    new Vec(Uint32, [new Uint32(2), new Uint32(3)])
-  );
-
-  let encoded = t.pack();
-  console.log("encoded: ", encoded);
-
-  let [decoded, size] = t.unpack(encoded);
-  let decodedObj = decoded as SimpleArrayTest;
-  console.log("decodedObj.b.v: ", decodedObj.b.v, "size: ", size);
-
-  expect(decodedObj.a).toEqual(t.a);
-  expect(decodedObj.b.v).toEqual(t.b.v);
-});
+import { Decoder, Encoder, Base, Uint16, Uint32, Vec } from 'bincoder';
 
 class SimpleArrayTest extends Base {
   a: Uint16;
@@ -65,6 +46,7 @@ class SimpleArrayTest extends Base {
 
   // must support parameterless constructor
   constructor(a: Uint16 = new Uint16(), b: Vec<Uint32> = new Vec(Uint32)) {
+    super();
     this.a = a;
     this.b = b;
     this.size = this.a.size + this.b.size;
@@ -83,6 +65,23 @@ class SimpleArrayTest extends Base {
     return this;
   }
 }
+
+it("class with simple array", () => {
+  let t = new SimpleArrayTest(
+    new Uint16(1),
+    new Vec(Uint32, [new Uint32(2), new Uint32(3)])
+  );
+
+  let encoded = t.pack();
+  console.log("encoded: ", encoded);
+
+  let [decoded, size] = t.unpack(encoded);
+  let decodedObj = decoded as SimpleArrayTest;
+  console.log("decodedObj.b.v: ", decodedObj.b.v, "size: ", size);
+
+  expect(decodedObj.a).toEqual(t.a);
+  expect(decodedObj.b.v).toEqual(t.b.v);
+});
 ```
 
 More examples: `./__test__/*.test.ts`
