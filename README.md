@@ -18,7 +18,7 @@ yarn add bincoder
 # Example
 ## Basic Type
 ```
-import { Bool } from 'bincoder/types';
+import { Bool } from 'bincoder';
 
 it("Bool", () => {
   let a = new Bool(true);
