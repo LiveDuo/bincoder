@@ -6,8 +6,6 @@ import { Type } from "./type";
 export class Base implements Type {
   size: number = 0;
 
-  constructor() {}
-
   pack(config: Config = new Config()): ArrayBuffer {
     let size_writer = new SizeWriter();
     let size_encoder = new EncoderImpl(size_writer, config);
