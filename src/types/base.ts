@@ -5,20 +5,17 @@ import { Type } from "./type";
 
 export class Base implements Type {
   size: number = 0;
-  config: Config;
 
-  constructor() {
-    this.config = new Config();
-  }
+  constructor() {}
 
-  pack(): ArrayBuffer {
+  pack(config: Config = new Config()): ArrayBuffer {
     let size_writer = new SizeWriter();
-    let size_encoder = new EncoderImpl(size_writer, this.config);
+    let size_encoder = new EncoderImpl(size_writer, config);
     this.encode(size_encoder);
     let size = size_writer.bytesWritten;
 
     let writer = new VecWriter();
-    let encoder = new EncoderImpl(writer, this.config);
+    let encoder = new EncoderImpl(writer, config);
     this.encode(encoder);
 
     let buffer = new ArrayBuffer(size);
@@ -32,9 +29,9 @@ export class Base implements Type {
     return buffer;
   }
 
-  unpack(buffer: ArrayBuffer): [Decode, number] {
+  unpack(buffer: ArrayBuffer, config: Config = new Config()): [Decode, number] {
     let reader = new SliceReader(buffer);
-    let decoder = new DecoderImpl(reader, this.config);
+    let decoder = new DecoderImpl(reader, config);
     let result = this.decode(decoder);
     let bytes_read = buffer.byteLength - reader.slice.byteLength;
     return [result, bytes_read];
