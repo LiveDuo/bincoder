@@ -11,6 +11,10 @@ import {
   Uint32,
   Uint64,
   Uint128,
+  Float32,
+  Float64,
+  F32Epsilon,
+  F64Epsilon,
   Vec,
   String,
 } from "../src/types";
@@ -146,6 +150,30 @@ describe("basic types", () => {
     console.log(decoded, " ", size);
 
     expect(decoded).toEqual(a);
+  });
+
+  it("Float32", () => {
+    let a = new Float32(0.2);
+
+    let encoded = a.pack();
+    console.log(encoded);
+
+    let [decoded, size] = new Float32().unpack(encoded);
+    console.log(decoded, " ", size);
+
+    expect(Math.abs((decoded as Float32).v - a.v) <= F32Epsilon);
+  });
+
+  it("Float64", () => {
+    let a = new Float64(0.1);
+
+    let encoded = a.pack();
+    console.log(encoded);
+
+    let [decoded, size] = new Float64().unpack(encoded);
+    console.log(decoded, " ", size);
+
+    expect(Math.abs((decoded as Float64).v - a.v) <= F64Epsilon);
   });
 
   it("Option", () => {

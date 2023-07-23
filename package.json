@@ -1,6 +1,6 @@
 {
   "name": "bincoder",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A binary encoder / decoder implementation in Typescript.",
   "main": "lib/src/index.js",
   "repository": "git@github.com:felicityin/bincoder.git",
