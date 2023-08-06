@@ -2,7 +2,7 @@ import { Decoder } from "../de/decoder";
 import { Encoder } from "../enc/encoder";
 import { Base } from "./base";
 
-export const F32Epsilon = 1.19209290e-07;
+export const F32Epsilon = 1.1920929e-7;
 export const F64Epsilon = 2.2204460492503131e-16;
 
 export class Float32 extends Base {

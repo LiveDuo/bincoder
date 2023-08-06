@@ -1,4 +1,5 @@
 import {
+  Arr,
   Bool,
   Int8,
   Int16,
@@ -196,6 +197,18 @@ describe("basic types", () => {
     console.log(decoded1, " ", size1);
 
     expect(decoded1).toEqual(b);
+  });
+
+  it("Array", () => {
+    let a = new Arr(Uint64, 2, [new Uint64(1n), new Uint64(2n)]);
+
+    let encoded = a.pack();
+    console.log("encoded: ", encoded);
+
+    let [decoded, size] = new Arr(Uint64, 2).unpack(encoded);
+    console.log("decoded: ", decoded, " ", size);
+
+    expect((decoded as Arr<Uint64, 2>).v).toEqual(a.v);
   });
 
   it("Vec", () => {

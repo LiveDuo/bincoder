@@ -1,37 +1,35 @@
 import { Decoder } from "../de/decoder";
 import { Encoder } from "../enc/encoder";
 import { Type } from "./type";
+import { Uint64 } from "./uint";
 import { Base } from "./base";
 
-export class Arr<T extends Type, N extends number> extends Base {
+export class Vec<T extends Type> extends Base {
   v: Array<T>;
   size: number;
-  itemCount: N;
   itemType: new (...args: any[]) => T;
 
-  constructor(
-    itemType: new (...args: any[]) => T,
-    len: N,
-    v: Array<T> = new Array(len)
-  ) {
+  constructor(itemType: new (...args: any[]) => T, v: Array<T> = new Array()) {
     super();
     this.v = v;
     this.itemType = itemType;
-    this.itemCount = len;
-    this.size = 8 + new itemType().size * len;
+    this.size = 8 + new itemType().size * v.length;
   }
 
   encode(encoder: Encoder) {
+    new Uint64(BigInt(this.v.length)).encode(encoder);
+
     for (let i = 0; i < this.v.length; i++) {
       this.v[i].encode(encoder);
     }
   }
 
   decode(decoder: Decoder): this {
-    this.size = new this.itemType().size * this.itemCount;
+    let len = Number(new Uint64().decode(decoder).v);
+    this.size = 8 + new this.itemType().size * len;
     this.v = new Array<T>();
 
-    for (let i = 0; i < this.itemCount; i++) {
+    for (let i = 0; i < len; i++) {
       let decoded = new this.itemType().decode(decoder) as T;
       this.v.push(decoded);
     }

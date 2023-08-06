@@ -1,4 +1,5 @@
 export * from "./array";
+export * from "./vec";
 export * from "./base";
 export * from "./bool";
 export * from "./option";
