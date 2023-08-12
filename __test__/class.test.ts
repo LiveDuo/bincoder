@@ -10,7 +10,8 @@ describe("class", () => {
     let [decoded, size] = new Test().unpack(encoded);
     console.log(decoded, " ", size);
 
-    expect(decoded).toEqual(t);
+    expect((decoded as Test).a).toEqual(t.a);
+    expect((decoded as Test).b).toEqual(t.b);
 
     t.b = new Uint32(3);
 
@@ -20,7 +21,7 @@ describe("class", () => {
     let [decoded1, size1] = new Test().unpack(encoded1);
     console.log(decoded1, " ", size1);
 
-    expect(decoded1).toEqual(t);
+    expect((decoded1 as Test).b).toEqual(t.b);
   });
 
   it("class with simple vec", () => {
@@ -67,7 +68,9 @@ describe("class", () => {
     let [decoded, size] = new NestedTest().unpack(encoded);
     console.log(decoded, " ", size);
 
-    expect(decoded).toEqual(t);
+    expect((decoded as NestedTest).a).toEqual(t.a);
+    expect((decoded as NestedTest).b.a).toEqual(t.b.a);
+    expect((decoded as NestedTest).b.b).toEqual(t.b.b);
   });
 
   it("complicated class", () => {

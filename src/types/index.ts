@@ -8,3 +8,4 @@ export * from "./int";
 export * from "./uint";
 export * from "./string";
 export * from "./float";
+export * from "./enum";
