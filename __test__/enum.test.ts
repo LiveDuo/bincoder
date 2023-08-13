@@ -56,7 +56,20 @@ describe("enum", () => {
     expect(b.a.t[Test2Enum.C]).toEqual(a.a.t[Test2Enum.C]);
   });
 
-  it("vec", () => {
+  it("vec in enum", () => {
+    let a = new Test2(Test2Enum.D);
+    a.t[Test2Enum.D] = new Vec(Bool, [new Bool(true)]);
+    let encoded = a.pack();
+    console.log(encoded);
+
+    let b = new Test2();
+    let [decoded, size] = b.unpack(encoded);
+    console.log(decoded, " ", size);
+
+    expect(b.t[Test2Enum.D]).toEqual(a.t[Test2Enum.D]);
+  });
+
+  it("enum in vec", () => {
     let a = new Vec(Test, [new Test(new Uint16(1), new Uint32(2))]);
     let encoded = a.pack();
     console.log(encoded);
@@ -84,6 +97,7 @@ enum Test2Enum {
   A,
   B,
   C,
+  D,
 }
 
 class Test2 extends Enum {
@@ -92,6 +106,7 @@ class Test2 extends Enum {
       [Test2Enum.A]: new Bool(),
       [Test2Enum.B]: new Uint32(),
       [Test2Enum.C]: new Test(),
+      [Test2Enum.D]: new Vec(Bool),
     };
   }
 }
