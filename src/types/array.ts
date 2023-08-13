@@ -6,7 +6,7 @@ import { Base } from "./base";
 export class Arr<T extends Type, N extends number> extends Base {
   v: Array<T>;
   size: number;
-  itemCount: N;
+  len: N;
   itemType: new (...args: any[]) => T;
 
   constructor(
@@ -17,7 +17,7 @@ export class Arr<T extends Type, N extends number> extends Base {
     super();
     this.v = v;
     this.itemType = itemType;
-    this.itemCount = len;
+    this.len = len;
     this.size = 8 + new itemType().size * len;
   }
 
@@ -28,10 +28,10 @@ export class Arr<T extends Type, N extends number> extends Base {
   }
 
   decode(decoder: Decoder): this {
-    this.size = new this.itemType().size * this.itemCount;
+    this.size = new this.itemType().size * this.len;
     this.v = new Array<T>();
 
-    for (let i = 0; i < this.itemCount; i++) {
+    for (let i = 0; i < this.len; i++) {
       let decoded = new this.itemType().decode(decoder) as T;
       this.v.push(decoded);
     }

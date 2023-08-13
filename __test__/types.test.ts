@@ -186,7 +186,7 @@ describe("basic types", () => {
     let [decoded, size] = new Option(new Uint16()).unpack(encoded);
     console.log(decoded, " ", size);
 
-    expect(decoded).toEqual(a);
+    expect((decoded as Option<Uint16>).v).toEqual(a.v);
 
     let b = new Option();
 
@@ -196,7 +196,7 @@ describe("basic types", () => {
     let [decoded1, size1] = new Option(new Uint16()).unpack(encoded1);
     console.log(decoded1, " ", size1);
 
-    expect(decoded1).toEqual(b);
+    expect((decoded1 as Option<Uint16>).v).toEqual(b.v);
   });
 
   it("Array", () => {

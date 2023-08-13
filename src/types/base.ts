@@ -24,6 +24,10 @@ export class Base implements Type {
       array.set(new Uint8Array(writer.vec[i]), offset);
       offset += writer.vec[i].byteLength;
     }
+
+    if (this.size === 0) {
+      this.size = size;
+    }
     return buffer;
   }
 
