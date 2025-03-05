@@ -11,9 +11,9 @@ export class SliceReader implements Reader {
 
   read(buf: ArrayBuffer): void {
     if (buf.byteLength > this.slice.byteLength) {
-      let addtional = buf.byteLength;
+      let additional = buf.byteLength;
       this.slice.byteLength;
-      throw new Error(`UnexpectedEnd: additional = ${addtional}`);
+      throw new Error(`UnexpectedEnd: additional = ${additional}`);
     }
 
     const bufArray = new Uint8Array(buf);
