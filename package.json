@@ -16,7 +16,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "bundle": "tsc && parcel build lib/src/index.js --no-optimize --no-source-maps --cache-dir /tmp/.parcel-cache",
+    "bundle": "esbuild src/index.ts --outfile=lib/bundle.js --bundle --platform=browser",
     "build": "tsc",
     "test": "jest",
     "format": "prettier -wu src/* __test__/*",
@@ -48,11 +48,11 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
+    "esbuild": "^0.25.0",
     "husky": ">=6",
     "jest": "^29.6.0",
     "lint-staged": ">=10",
     "mrm": "2",
-    "parcel": "^2.13.3",
     "pre-commit": "^1.2.2",
     "prettier": "^2.8.8",
     "ts-jest": "^29.1.1"
